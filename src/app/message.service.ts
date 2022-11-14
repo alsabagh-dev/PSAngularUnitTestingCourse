@@ -5,7 +5,8 @@ export class MessageService {
   messages: string[] = [];
 
   add(message: string) {
-    this.messages.push(message);
+    // change to immutable
+    this.messages = [...this.messages, message] ;
   }
 
   clear() {

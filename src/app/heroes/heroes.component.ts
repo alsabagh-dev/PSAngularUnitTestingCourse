@@ -38,3 +38,6 @@ export class HeroesComponent implements OnInit {
   }
 
 }
+
+
+// Armaaat question.

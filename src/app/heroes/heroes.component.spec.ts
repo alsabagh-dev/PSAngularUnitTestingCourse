@@ -54,4 +54,59 @@ describe("HeroesComponent", () => {
       expect(mockHeroService.deleteHero).toHaveBeenCalledOnceWith(Heroes[2]);
     });
   });
+
+  describe("add", () => {
+    const ELZoz = "El-zoz";
+    beforeEach(() => {
+      const Hero = { id: 3, name: ELZoz, strength: 11 };
+      mockHeroService.addHero.and.returnValue(of(Hero));
+    });
+
+    // state test
+    it("should add the hero to the heroes list", () => {
+      // arrange
+      component.heroes = Heroes;
+      // act
+      component.add(ELZoz);
+
+      // assert
+      expect(component.heroes.length).toBe(4);
+      expect(component.heroes.find((hero) => hero.name === ELZoz).name).toEqual(
+        ELZoz
+      );
+    });
+
+    // interaction test
+    it("should call addHero with correct hero", () => {
+      // arrange
+      component.heroes = Heroes;
+      // act
+      component.add(ELZoz);
+      // assert
+      expect(mockHeroService.addHero).toHaveBeenCalledOnceWith({
+        name: ELZoz,
+        strength: 11,
+      });
+    });
+  });
+
+  describe("getHeroes", () => {
+    beforeEach(() => {
+      // arrange
+      mockHeroService.getHeroes.and.returnValue(of(Heroes));
+    });
+
+    it("should set heroes array", () => {
+      // act
+      component.getHeroes();
+      // assert
+      expect(component.heroes.length).toBe(3);
+    });
+    it("should call getHeros", () => {
+      // act
+      component.getHeroes();
+      // assert
+      expect(mockHeroService.getHeroes).toHaveBeenCalled();
+    });
+  });
 });
